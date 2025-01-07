@@ -43,14 +43,7 @@ def stop_trafficlight_for_certain_time():
 
     time.sleep(stoptime)
 
-    trafficlight1 = 1
-    trafficlight2 = 0
-    trafficlight3 = 0
-    trafficlight4 = 1
-    trafficlight1Label.configure(text="Trafficlight 1: " + str(trafficlight1))
-    trafficlight2Label.configure(text="Trafficlight 2: " + str(trafficlight2))
-    trafficlight3Label.configure(text="Trafficlight 3: " + str(trafficlight3))
-    trafficlight4Label.configure(text="Trafficlight 4: " + str(trafficlight4))
+    StartTrafficLightForever()
 
 def change_trafficlight():
     global trafficlight1
@@ -84,6 +77,11 @@ def StartTrafficLightForever():
     t.daemon = True
     t.start()
 
+def start_stop_trafficlight_for_certaintime():
+    u = threading.Thread(target=stop_trafficlight_for_certain_time)
+    u.daemon = True
+    u.start()
+
 root.title("Trafikk lys")
 root.geometry("400x400")
 
@@ -94,12 +92,12 @@ startButton = ctk.CTkButton(controller, text="Start Forever", command=StartTraff
 startButton.pack(in_=controller, side="left", padx=10)
 
 stopButton = ctk.CTkButton(controller, text="Stop Forever", command=stop_trafficlight)
-stopButton.pack(in_=controller, side="left")
+stopButton.pack(in_=controller, side="left",padx=10)
 
 stoptimeInput = ctk.CTkEntry(controller, placeholder_text="Time in seconds")
 stoptimeInput.pack(in_=controller, side="left")
 
-stop_for_certain_time = ctk.CTkButton(controller, text="Stop For (Input) Amount of time", command=stop_trafficlight_for_certain_time)
+stop_for_certain_time = ctk.CTkButton(controller, text="Stop For (Input) Amount of time", command=start_stop_trafficlight_for_certaintime)
 stop_for_certain_time.pack(in_=controller, side="left", padx=10)
 
 changebutton = ctk.CTkButton(controller, text="Change", command=change_trafficlight)
