@@ -84,7 +84,7 @@ def start_stop_trafficlight_for_certaintime():
     u.start()
 
 root.title("Trafikk lys")
-root.geometry("400x400")
+root.geometry("1300x400")
 
 controller = ctk.CTkFrame(root)
 controller.pack(side="top", fill="x")
@@ -110,10 +110,10 @@ stop_for_certain_time.pack(in_=controller, side="left", padx=10)
 changebutton = ctk.CTkButton(controller, text="Change", command=change_trafficlight)
 changebutton.pack(in_=controller, side="left")
 
-trafficlight1Label.pack(side="top",side="left")
-trafficlight2Label.pack(side="top",side="left")
-trafficlight3Label.pack(side="top",side="left")
-trafficlight4Label.pack(side="top",side="left")
+trafficlight1Label.pack(side="top")
+trafficlight2Label.pack(side="top")
+trafficlight3Label.pack(side="top")
+trafficlight4Label.pack(side="top")
 
 
 root.mainloop()
