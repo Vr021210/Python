@@ -69,8 +69,9 @@ def change_trafficlight():
 
 def TrafficLightForever():
     while True:
+        intervaltime = int(changeintervalInput.get())
         change_trafficlight()
-        time.sleep(10)
+        time.sleep(intervaltime)
 
 def StartTrafficLightForever():
     t = threading.Thread(target=TrafficLightForever)
@@ -88,8 +89,14 @@ root.geometry("400x400")
 controller = ctk.CTkFrame(root)
 controller.pack(side="top", fill="x")
 
+changeintervalInput = ctk.CTkEntry(controller, placeholder_text="Interval in seconds")
+changeintervalInput.pack(in_=controller, side="left",padx=10)
+
 startButton = ctk.CTkButton(controller, text="Start Forever", command=StartTrafficLightForever)
 startButton.pack(in_=controller, side="left", padx=10)
+
+fixstartforeverbutton = ctk.CTkButton(controller, text="Fix Start Forever", command=StartTrafficLightForever)
+fixstartforeverbutton.pack(in_=controller, side="left", padx=10)
 
 stopButton = ctk.CTkButton(controller, text="Stop Forever", command=stop_trafficlight)
 stopButton.pack(in_=controller, side="left",padx=10)
