@@ -1,6 +1,7 @@
 import time
 import threading
 import customtkinter as ctk
+
 root = ctk.CTk()
 trafficlight1 = 0
 trafficlight2 = 1
