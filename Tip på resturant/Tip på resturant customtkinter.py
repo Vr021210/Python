@@ -1,6 +1,7 @@
 import tkinter as tk
 import customtkinter as ctk
 from customtkinter import CTkSwitch, CTkComboBox
+import threading
 
 chosenColor = "system"
 
@@ -112,5 +113,16 @@ devbutton.pack(side="left", padx=5)
 
 devlabel = ctk.CTkLabel(dev_frame, text="", font=('Oswald', 12))
 devlabel.pack(side="left", padx=5)
+
+def update_text():
+    while True:
+        calculate()
+
+def start_dynamic_update():
+    u = threading.Thread(target=update_text)
+    u.daemon = True
+    u.start()
+
+start_dynamic_update()
 
 root.mainloop()
