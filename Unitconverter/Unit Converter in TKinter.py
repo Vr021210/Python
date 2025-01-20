@@ -1,8 +1,9 @@
 import tkinter as tk
 import customtkinter as ctk
+import threading
 do = 1
 
-# Conversion factors dictionary
+
 conversion_factors = {
     "Length": {
         "Meters": 1,
@@ -12,7 +13,7 @@ conversion_factors = {
         "Inches": 0.0254,
         "Feet": 0.3048,
         "Yards": 0.9144,
-        "Miles": 1609.34,
+        "Miles": 1609.34, 
     },
     "Energy": {
         "Joules": 1,
@@ -28,8 +29,8 @@ conversion_factors = {
         "Milligrams": 0.001,
         "Pounds": 453.592,
         "Ounces": 28.3495,
-        "Metric Tons": 1000000,  # 1 metric ton = 1,000,000 grams
-        "Megatons": 1000000000000,  # 1 megaton = 1,000,000,000,000 grams (1 million metric tons)
+        "Metric Tons": 1000000,  
+        "Megatons": 1000000000000,
     },
     "Temperature": {
         "Celsius to Fahrenheit": lambda c: (c * 9/5) + 32,
@@ -41,7 +42,7 @@ conversion_factors = {
     },
 }
 
-# Update dropdown options based on selected unit type
+
 def update_options(*args):
     selected_option = selected_option_DropdownUnitTypeOptions.get()
 
@@ -61,14 +62,13 @@ def update_options(*args):
     elif selected_option == "Energy":
         units = list(conversion_factors["Energy"].keys())
     else:
-        units = []  # Empty for other categories (if any)
+        units = []  
 
-    # Add new options to the "From" and "To" dropdowns
     for unit in units:
         menu_from.add_command(label=unit, command=tk._setit(selected_option_FromUnitDropDown, unit))
         menu_to.add_command(label=unit, command=tk._setit(selected_option_ToUnitDropDown, unit))
 
-# Convert the input value based on selected units
+
 def convert():
     try:
         # Get input value
@@ -151,9 +151,19 @@ number1.pack(padx=10, pady=0)
 convertedlabel = tk.Label(root, text="", font=('Arial', 18))
 convertedlabel.pack(padx=10, pady=10)
 
-# Convert button to trigger the conversion
+
 convertbutton = tk.Button(root, text="Convert", font=('Arial', 10), command=convert)
 convertbutton.pack(padx=10, pady=10)
 
+def update_text():
+    while True:
+        convert()
+
+def start_dynamic_update():
+    u = threading.Thread(target=update_text)
+    u.daemon = True
+    u.start()
+
+start_dynamic_update()
 # Run the Tkinter event loop
 root.mainloop()
