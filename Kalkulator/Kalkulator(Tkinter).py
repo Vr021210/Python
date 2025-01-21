@@ -1,4 +1,5 @@
 import tkinter as tk
+import threading
 
 def calculate():
     try:
@@ -34,7 +35,7 @@ welcomelabel.pack(padx=10, pady=10)
 number1 = tk.Entry(root)
 number1.pack(padx=30, pady=30)
 
-option = ["Multiplication (*)", "Subtraction (-)", "Divide (/)", "Power (**)", "Addition (+)"]
+option = ["Multiplication", "Subtraction", "Divide", "Power", "Addition"]
 selected_option = tk.StringVar(value=option[0])  # Default value
 option_menu = tk.OptionMenu(root, selected_option, *option)
 option_menu.pack(padx=10, pady=10)
@@ -47,5 +48,16 @@ calculate_button.pack(padx=10, pady=10)
 
 resultlabel = tk.Label(root, text="Result: ", font=('Arial', 18))
 resultlabel.pack(padx=10, pady=10)
+
+def update_text():
+    while True:
+        calculate()
+
+def start_dynamic_update():
+    u = threading.Thread(target=update_text)
+    u.daemon = True
+    u.start()
+
+start_dynamic_update()
 
 root.mainloop()
