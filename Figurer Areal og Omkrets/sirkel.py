@@ -1,4 +1,5 @@
 import customtkinter as ctk
+import threading
 root = ctk.CTk()
 
 root.title("Sirkel")
@@ -19,6 +20,16 @@ def beregn():
 
 radius = ctk.CTkEntry(root, placeholder_text="Radius:")
 radius.pack()
+
+def update_text():
+    while True:
+        beregn()
+
+
+def start_dynamic_update():
+    u = threading.Thread(target=update_text)
+    u.daemon = True
+    u.start()
 
 b = ctk.CTkButton(root, text="Beregn", command=beregn)
 b.pack()
