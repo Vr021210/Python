@@ -15,7 +15,7 @@ grunnlinjeinput.pack()
 høydeinput = ctk.CTkEntry(root, placeholder_text="Høyde: ")
 høydeinput.pack()
 
-areallabel = ctk.CTkLabel(root, text=f"Result: {areal}")
+areallabel = ctk.CTkLabel(root, text=f"Areal: {areal}")
 areallabel.pack()
 
 
@@ -25,7 +25,7 @@ def kalkuler():
         hoyde = int(høydeinput.get())
 
         areal = grunnlinje * hoyde
-        areallabel.configure(text=f"Result: {areal}")
+        areallabel.configure(text=f"Areal: {areal}")
     except ValueError:
         areallabel.configure(text="Please Enter a Valid Input")
 
