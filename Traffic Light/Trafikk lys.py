@@ -1,6 +1,7 @@
 import time
 import threading
 import customtkinter as ctk
+Trafficlight = 1
 
 root = ctk.CTk()
 trafficlight1 = 0
@@ -15,6 +16,8 @@ trafficlight4Label = ctk.CTkLabel(root, text="Trafficlight 4: ")
 
 
 def stop_trafficlight():
+    global Trafficlight
+    Trafficlight = 0
     global trafficlight1
     global trafficlight2
     global trafficlight3
@@ -47,6 +50,8 @@ def stop_trafficlight_for_certain_time():
     StartTrafficLightForever()
 
 def change_trafficlight():
+    global Trafficlight
+    Trafficlight = 1
     global trafficlight1
     global trafficlight2
     global trafficlight3
@@ -69,10 +74,12 @@ def change_trafficlight():
     trafficlight4Label.configure(text="Trafficlight 4: " + str(trafficlight4))
 
 def TrafficLightForever():
-    while True:
-        intervaltime = int(changeintervalInput.get())
-        change_trafficlight()
-        time.sleep(intervaltime)
+
+    intervaltime = int(changeintervalInput.get())
+    change_trafficlight()
+    time.sleep(intervaltime)
+    if Trafficlight == 1:
+        TrafficLightForever()
 
 def StartTrafficLightForever():
     t = threading.Thread(target=TrafficLightForever)
